@@ -5,36 +5,28 @@ import os
 import re
 from playwright.async_api import async_playwright
 
-# --- FUNCIÓN PARA ANÁLISIS BIG FIVE (OCEAN) BASADO EN TEXTO ---
 def analyze_big_five(text_content):
-    """
-    Analiza el texto acumulado de los posts y asigna una puntuación (0 a 100)
-    a cada uno de los 5 rasgos del Big Five (OCEAN).
-    """
     text = text_content.lower()
-    
-    # Dicionarios léxicos de palabras clave por dimensión
     keywords = {
-        "Openness": ["arte", "sueño", "crear", "nuevo", "viaje", "mundo", "musica", "futbol", "vida", "magia", "pensar", "foto"],
-        "Conscientiousness": ["trabajo", "meta", "entrenar", "foco", "disciplina", "dios", "siempre", "hoy", "preparacion", "exito"],
-        "Extraversion": ["familia", "amigos", "fiesta", "equipo", "alegria", "gracias", "show", "vamos", "gente", "feliz", "celebrar"],
-        "Agreeableness": ["amor", "paz", "gracias", "union", "apoyo", "juntos", "corazon", "bendicion", "respeto", "humildad"],
-        "Neuroticism": ["dificil", "cansado", "problema", "miedo", "triste", "presion", "error", "culpa", "caos", "duda"]
+        "Openness": ["arte", "sueño", "crear", "nuevo", "viaje", "mundo", "musica", "futbol", "vida", "magia", "foto"],
+        "Conscientiousness": ["trabajo", "meta", "entrenar", "foco", "disciplina", "dios", "siempre", "hoy", "exito"],
+        "Extraversion": ["familia", "amigos", "fiesta", "equipo", "alegria", "gracias", "show", "vamos", "gente", "feliz"],
+        "Agreeableness": ["amor", "paz", "gracias", "union", "apoyo", "juntos", "corazon", "bendicion", "respeto"],
+        "Neuroticism": ["dificil", "cansado", "problema", "miedo", "triste", "presion", "error", "culpa", "caos"]
     }
     
     scores = {}
     for trait, words in keywords.items():
         matches = sum(len(re.findall(r'\b' + word + r'\b', text)) for word in words)
-        # Base de 50 + ponderación según coincidencias
         score = min(100, 50 + (matches * 8))
         scores[trait] = round(score, 2)
         
     return scores
 
-# --- SCRAPER PRINCIPAL ---
 async def run_scraper():
     username = "neymarjr" 
     url = f"https://www.tiktok.com/@{username}"
+    cookies_path = os.path.join("data", "cookies.json")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
@@ -43,6 +35,15 @@ async def run_scraper():
             viewport={"width": 1280, "height": 800}
         )
         
+        # INYECCIÓN DE COOKIES
+        if os.path.exists(cookies_path):
+            with open(cookies_path, "r", encoding="utf-8") as f:
+                cookies = json.load(f)
+            await context.add_cookies(cookies)
+            print(f"🍪 Se inyectaron exitosamente {len(cookies)} cookies desde '{cookies_path}'.")
+        else:
+            print("⚠️ Advertencia: No se encontró 'data/cookies.json'. Ejecutando sin cookies inyectadas.")
+
         page = await context.new_page()
         print(f"Navegando al perfil oficial de @{username}...")
         await page.goto(url, wait_until="domcontentloaded")
@@ -57,36 +58,30 @@ async def run_scraper():
         except Exception:
             name, followers, likes_totales, bio = "N/A", "N/A", "N/A", "N/A"
 
-        # 2. Hacer Scroll para cargar publicaciones en el DOM
+        # 2. Scroll para cargar publicaciones
         await page.evaluate("window.scrollBy(0, 1000)")
         await page.wait_for_timeout(3000)
 
-        # 3. Localizar los posts/videos del perfil
+        # 3. Localizar los 10 primeros posts
         posts_data = []
         all_text_accumulated = bio + " "
         
-        # Obtenemos los contenedores de los videos
         video_items = page.locator("[data-e2e='user-post-item']")
         count = await video_items.count()
-        print(f"Detectados {count} elementos de video. Extrayendo los 10 primeros...")
-
         limit = min(10, count)
+
         for i in range(limit):
             item = video_items.nth(i)
-            
-            # Intento de extracción de vistas / métrica visible en el feed
             try:
                 views = await item.locator("[data-e2e='video-views']").inner_text()
             except Exception:
                 views = "N/A"
                 
-            # Intento de extracción del enlace directo del post
             try:
                 link = await item.locator("a").get_attribute("href")
             except Exception:
                 link = "N/A"
 
-            # Intento de extracción del texto/caption o alt de la imagen de portada
             try:
                 img_alt = await item.locator("img").get_attribute("alt")
                 caption = img_alt if img_alt else f"Post numero {i+1}"
@@ -95,18 +90,16 @@ async def run_scraper():
 
             all_text_accumulated += f" {caption}"
 
-            post_info = {
+            posts_data.append({
                 "post_index": i + 1,
                 "url": link,
                 "vistas_o_likes_feed": views,
                 "caption": caption
-            }
-            posts_data.append(post_info)
+            })
 
-        # 4. Generar el Análisis Big Five con el texto recopilado
+        # 4. Análisis Big Five
         big_five_results = analyze_big_five(all_text_accumulated)
 
-        # Estructura final del JSON resultante
         final_dataset = {
             "perfil": {
                 "usuario": f"@{username}",
@@ -119,32 +112,21 @@ async def run_scraper():
             "posts_extraidos": posts_data
         }
 
-        print("\n==========================================")
-        print("     ANÁLISIS BIG FIVE (OCEAN) GENERADO   ")
-        print("==========================================")
-        for trait, score in big_five_results.items():
-            print(f"• {trait}: {score}/100")
-        print("==========================================\n")
-
-        # 5. Guardar archivos en data/
+        # 5. Guardar archivos
         os.makedirs("data", exist_ok=True)
-
-        # Exportar JSON completo
+        
         json_path = os.path.join("data", f"{username}_full_analysis.json")
         with open(json_path, "w", encoding="utf-8") as f:
             json.dump(final_dataset, f, ensure_ascii=False, indent=4)
-        print(f"✅ Análisis completo guardado en JSON: {json_path}")
 
-        # Exportar CSV de los 10 Posts
         csv_path = os.path.join("data", f"{username}_top10_posts.csv")
         with open(csv_path, "w", newline="", encoding="utf-8") as f:
-            fieldnames = ["post_index", "vistas_o_likes_feed", "url", "caption"]
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer = csv.DictWriter(f, fieldnames=["post_index", "vistas_o_likes_feed", "url", "caption"])
             writer.writeheader()
             for post in posts_data:
                 writer.writerow(post)
-        print(f"✅ Métrica de los 10 posts guardada en CSV: {csv_path}")
 
+        print("\n✅ ¡Scraping con Cookies y Análisis Big Five completado!")
         await browser.close()
 
 if __name__ == "__main__":
