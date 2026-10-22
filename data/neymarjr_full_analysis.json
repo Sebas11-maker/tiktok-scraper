@@ -6,6 +6,27 @@
         "likes_totales": "292.7M",
         "biografia": "Eu sendo eu ✋🏽😜🤚🏽"
     },
+    "metricas_avanzadas": {
+        "total_posts_analizados": 10,
+        "top_hashtags": [
+            "#CançãoAlimentos",
+            "#NeymarJr",
+            "#football",
+            "#EmoçãoQueAlimenta",
+            "#neyney",
+            "#fyp",
+            "#SantosFc",
+            "#neymarjr"
+        ],
+        "top_menciones": [
+            "@Canção",
+            "@Santos",
+            "@Instituto",
+            "@Biscoitê",
+            "@NFL",
+            "@nossonoah"
+        ]
+    },
     "big_five_analysis": {
         "Openness": 58,
         "Conscientiousness": 50,
@@ -18,61 +39,81 @@
             "post_index": 1,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7695116314507021576",
-            "caption": "O MUNDO QUASE FOI DESTRUÍDO POR... UMA MÚSICA! E tudo começou comigo 🤯 Assista AGORA no YOUTUBE!!! . THE WORLD WAS ALMOST DESTROYED BY... A SONG! And it all started with me #neyney #fyp #football #neymarjr creado por Enejota con la música som original de Enejota"
+            "caption": "O MUNDO QUASE FOI DESTRUÍDO POR... UMA MÚSICA! E tudo começou comigo 🤯 Assista AGORA no YOUTUBE!!! . THE WORLD WAS ALMOST DESTROYED BY... A SONG! And it all started with me #neyney #fyp #football #neymarjr creado por Enejota con la música som original de Enejota",
+            "hashtags": "#neyney, #fyp, #football, #neymarjr",
+            "menciones": "Ninguno"
         },
         {
             "post_index": 2,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7693297341905767698",
-            "caption": "FUTI por @Biscoitê Brasil e eu já está disponível. E hoje o futebol também entra em campo por uma causa que transforma. A Biscoitê se une ao @Instituto Projeto Neymar Jr. para celebrar o esporte, a educação e novas possibilidades para crianças e adolescentes. Vem com a gente nessa nova história. HOJE, às 20h aqui no meu perfil. creado por Enejota con la música som original de Enejota"
+            "caption": "FUTI por @Biscoitê Brasil e eu já está disponível. E hoje o futebol também entra em campo por uma causa que transforma. A Biscoitê se une ao @Instituto Projeto Neymar Jr. para celebrar o esporte, a educação e novas possibilidades para crianças e adolescentes. Vem com a gente nessa nova história. HOJE, às 20h aqui no meu perfil. creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "@Biscoitê, @Instituto"
         },
         {
             "post_index": 3,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7690730755458125063",
-            "caption": "Thanks @NFL  creado por Enejota con la música som original de Enejota"
+            "caption": "Thanks @NFL  creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "@NFL"
         },
         {
             "post_index": 4,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7687992968736705810",
-            "caption": "Talento de sobra, sabor de sobra também. ⚽🔥   #CançãoAlimentos #EmoçãoQueAlimenta #SantosFc #NeymarJr @Canção Alimentos  creado por Enejota con la música som original de Enejota"
+            "caption": "Talento de sobra, sabor de sobra também. ⚽🔥   #CançãoAlimentos #EmoçãoQueAlimenta #SantosFc #NeymarJr @Canção Alimentos  creado por Enejota con la música som original de Enejota",
+            "hashtags": "#CançãoAlimentos, #EmoçãoQueAlimenta, #SantosFc, #NeymarJr",
+            "menciones": "@Canção"
         },
         {
             "post_index": 5,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7683632304308210977",
-            "caption": " creado por Enejota con la música som original de Enejota"
+            "caption": " creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "Ninguno"
         },
         {
             "post_index": 6,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7676580362218196257",
-            "caption": "⚪️⚫️ creado por Enejota con la música som original de Enejota"
+            "caption": "⚪️⚫️ creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "Ninguno"
         },
         {
             "post_index": 7,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7676221501011414305",
-            "caption": " creado por Enejota con la música som original de Enejota"
+            "caption": " creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "Ninguno"
         },
         {
             "post_index": 8,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7670575826534010145",
-            "caption": "24h creado por Enejota con la música som original de Enejota"
+            "caption": "24h creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "Ninguno"
         },
         {
             "post_index": 9,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7668780167443090720",
-            "caption": "🐳  @Santos FC  creado por Enejota con la música som original de Enejota"
+            "caption": "🐳  @Santos FC  creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "@Santos"
         },
         {
             "post_index": 10,
             "vistas_o_likes_feed": "N/A",
             "url": "https://www.tiktok.com/@neymarjr/video/7665814339693071649",
-            "caption": "Hoje foi o dia de conhecer o @nossonoah.blogueirinho ! Molequinho maravilhoso ❤️❤️ Te vejo sábado amigão creado por Enejota con la música som original de Enejota"
+            "caption": "Hoje foi o dia de conhecer o @nossonoah.blogueirinho ! Molequinho maravilhoso ❤️❤️ Te vejo sábado amigão creado por Enejota con la música som original de Enejota",
+            "hashtags": "Ninguno",
+            "menciones": "@nossonoah"
         }
     ]
 }
