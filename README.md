@@ -1,48 +1,40 @@
-# 🎵 TikTok Profile Scraper & Psychological Big Five Analyzer
+# TikTok Profile Scraper & Big Five Personality Analysis
 
-Este proyecto es una herramienta avanzada desarrollada en **Python** utilizando **Playwright** para la extracción automatizada de métricas públicas de perfiles de TikTok, gestión de sesiones mediante cookies, análisis léxico de hashtags y minería de texto aplicada al **Modelo Psicométrico Big Five (OCEAN)**.
+Este repositorio contiene una herramienta automatizada desarrollada en Python con **Playwright** para la extracción de publicaciones, métricas y análisis comportamental de perfiles de TikTok.
 
----
-
-## 🌟 Características Principales
-
-* 🍪 **Gestión Avanzada de Cookies:** Módulo independiente (`save_cookies.py`) para capturar la sesión del navegador e inyectarla (`context.add_cookies()`) evitando bloqueos de anti-bots.
-* 📜 **Scroll Interactivo Automático:** Simulación de movimiento humano de mouse y desplazamientos de rueda para forzar la carga dinámica del DOM.
-* 📊 **Extracción de Top 10 Posts:** Captura de URLs directas, descripciones (*captions*), reproducciones/vistas en feed.
-* 🏷️ **Minería de Hashtags y Menciones:** Detección en tiempo real de tendencias e interacciones (`#hashtags` y `@menciones`).
-* 🧠 **Análisis de Conducta (Big Five / OCEAN):** Evaluación léxica sobre los textos recopilados asignando puntuaciones del 0 al 100 en:
-  * **Openness (Apertura a experiencias)**
-  * **Conscientiousness (Responsabilidad / Foco)**
-  * **Extraversion (Extraversión / Sociabilidad)**
-  * **Agreeableness (Amabilidad / Empatía)**
-  * **Neuroticism (Inestabilidad Emocional)**
-* 💾 **Exportación Multiformato:** Generación automática de reportes estructurados en **JSON** y **CSV** dentro de la carpeta `data/`.
+El proyecto implementa un mecanismo de **persistencia de sesión e inyección de cookies HTTP** para evitar restricciones de autenticación y detección de bots, procesando la información extraída a través de un modelo de evaluación psicométrica basado en el **Big Five (OCEAN)**.
 
 ---
 
-## 🛠️ Arquitectura y Tecnologías
+## 📌 Características Principales
 
-* **Python 3.x**: Lenguaje de desarrollo.
-* **Playwright**: Engine de automatización del navegador Chromium.
-* **Regular Expressions (`re`)**: Extracción de entidades y patrones lingüísticos.
-* **JSON / CSV**: Formatos de persistencia de datos.
+* **Inyección e Ingesta de Cookies de Sesión:** Carga de tokens esenciales (`sessionid`, `ttwid`, `msToken`, etc.) desde `data/cookies.json` para mantener una sesión de navegador autenticada de forma transparente.
+* **Scraping Dinámico Asíncrono:** Utiliza `asyncio` y Playwright para emular el comportamiento de un usuario real, manejando el renderizado dinámico en JavaScript mediante scroll controlado.
+* **Extracción de Métricas y Metadatos:** Captura de URLs únicas, captions, hashtags (`#`) y menciones (`@`) del perfil objetivo (por defecto: `@neymarjr`).
+* **Análisis de Personalidad Big Five (OCEAN):** Procesamiento de lenguaje sobre los textos acumulados para medir los rasgos:
+  * **O**penness (Apertura a la experiencia)
+  * **C**onscientiousness (Responsabilidad / Tesón)
+  * **E**xtraversion (Extraversión)
+  * **A**greeableness (Amabilidad)
+  * **N**euroticism (Inestabilidad emocional)
+* **Exportación Multiformato:** Generación de datasets en `data/` estructurados en formato **CSV** y **JSON**.
 
 ---
 
-## 📁 Estructura del Repositorio
+## 📁 Estructura del Proyecto
 
 ```text
 tiktok-scraper/
 │
-├── data/                                # Archivos generados
-│   ├── cookies.json                     # Cookies de sesión persistidas
-│   ├── neymarjr_full_analysis.json      # Dataset completo + Big Five + Hashtags
-│   └── neymarjr_top10_posts.csv         # Tabla estructurada de las 10 publicaciones
+├── data/
+│   ├── cookies.json               # Contenedor de cookies de sesión autenticadas
+│   ├── neymarjr_full_analysis.json# Dataset completo en JSON (Perfil + Big Five + Posts)
+│   └── neymarjr_top10_posts.csv   # Dataset estructurado de los 10 posts procesados
 │
 ├── src/
-│   ├── save_cookies.py                  # Capturador de cookies del navegador
-│   └── scraper.py                       # Script principal de Scraping y NLP
+│   ├── save_cookies.py            # Módulo interactivo para captura de sesión y cookies
+│   └── scraper.py                 # Script principal de scraping, extracción y análisis
 │
-├── .gitignore                           # Exclusión de entorno virtual y temporales
-├── README.md                            # Documentación técnica
-└── requirements.txt                     # Lista de dependencias
+├── .gitignore                     # Filtro de archivos no rastreables
+├── README.md                      # Documentación del proyecto
+└── requirements.txt               # Dependencias del entorno en Python
